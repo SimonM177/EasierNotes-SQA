@@ -63,7 +63,7 @@ jobs:
           dotnet test EasierNotes.sln
           --configuration Release
           --no-build
-          --logger "trx;LogFileName=test-results.trx"
+          --logger "trx"
           --collect:"XPlat Code Coverage"
           --results-directory ./TestResults
 
