@@ -1,0 +1,17 @@
+#panel-selector {
+  width: 20vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+  background-color: #f4f5f6;
+  border-radius: 4px;
+}

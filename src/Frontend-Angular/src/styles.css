@@ -1,0 +1,99 @@
+/* Sobre escrbir color primario de bootstrap */
+.btn-primary {
+  background-color: #087E8B !important;
+  border-color:     #087E8B !important;
+}
+
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #066f75 !important;
+  border-color:     #066f75 !important;
+}
+
+.btn-outline-primary {
+  color: #087E8B !important;
+  border-color: #087E8B !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background-color: #087E8B !important;
+}
+
+.bg-primary {
+  background-color: #087E8B !important;
+}
+
+.text-primary {
+  color: #087E8B !important;
+}
+
+input[type="checkbox"] {
+  accent-color: #087E8B !important;
+}
+
+.form-check-input:checked {
+  background-color: #087E8B !important;
+  border-color:     #087E8B !important;
+}
+
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(8, 126, 139, 0.25) !important;
+}
+
+
+.form-select:focus {
+  border-color: #087E8B !important;
+  box-shadow: 0 0 0 .25rem rgba(8, 126, 139, 0.25) !important;
+  outline: 0;
+}
+
+
+
+
+
+body {
+  display: flex; 
+  margin: 0;
+  padding: 0;
+  }
+
+#main-frame{
+  flex: 1;
+  margin-left: 20vw;
+  padding: 1rem;
+  background-color: #ffffff;
+  height: 100vh;
+  width: 80vw;
+  overflow-x: hidden;
+}
+
+.main-font {
+  font-family: 'Montserrat', Segoe UI;
+  font-weight: 500;
+}
+
+::selection {
+  background: #ebebeb !important;
+}
+
+::-moz-selection {
+  background: #ebebeb !important;
+}
+
+.selected-image {
+  border: 2px solid #087E8B !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1) !important;
+  border-radius: 10px !important;
+}
+
+.selected-table {
+  border: 2px solid #087E8B !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1) !important;
+
+}
+

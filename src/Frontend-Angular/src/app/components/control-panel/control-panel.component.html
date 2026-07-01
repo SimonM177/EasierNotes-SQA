@@ -1,0 +1,31 @@
+<!-- Menú lateral -->
+<div id="panel-selector">
+  <section
+    class="d-flex flex-column justify-content-center align-items-center p-3 text-center mb-4"
+  >
+    <img
+      src="statics/logo.png"
+      class="img-fluid mb-3"
+      alt="Logo de Easier Notes"
+      style="width: 40%"
+    />
+    <h5 class="fs-2 main-font">Easier Notes</h5>
+  </section>
+
+  <ul class="nav flex-column">
+    <li class="nav-item fs-5 mb-2">
+      <a routerLink="/notes" class="nav-link text-dark"
+      [routerLinkActive]="['text-primary', 'fw-bold']">
+        <i class="bi bi-file-earmark-text me-2"></i>
+        <span>Mis Notas</span>
+        </a>
+      </li>
+      <li class="nav-item  fs-5">
+        <a routerLink="/categories" class="nav-link text-dark"
+        [routerLinkActive]="['text-primary', 'fw-bold']">
+          <i class="bi bi-journals me-2"></i>
+          <span>Categorias</span>
+        </a>
+    </li>
+  </ul>
+</div>

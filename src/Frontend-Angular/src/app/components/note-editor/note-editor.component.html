@@ -1,0 +1,137 @@
+<div class="note-editor">
+  <div
+    class=" bg-white sticky-top toolbar mt-5 mb-2 border-bottom border-top border-secondary-subtle"
+  >
+    <!-- Insertar fila -->
+    <button
+      type="button"
+      #insertRowButton
+      class="btn btn-light btn-sm me-2"
+      (click)="onInsertRow()"
+      [disabled]="!isEditorFocused()"
+      title="Insertar fila"
+    >
+      <img src="statics/add-row.svg" alt="Insertar fila" class="toolbar-icon" />
+    </button>
+
+    <!-- Insertar columna -->
+    <button
+      type="button"
+      #insertColumnButton
+      class="btn btn-light btn-sm me-2"
+      (click)="onInsertColumn()"
+      [disabled]="!isEditorFocused()"
+      title="Insertar columna"
+    >
+      <img
+        src="statics/add-column.svg"
+        alt="Insertar columna"
+        class="toolbar-icon"
+      />
+    </button>
+
+    <!-- Botón: Eliminar tabla -->
+    <button
+      type="button"
+      #deleteTableButton
+      class="btn btn-light btn-sm me-2"
+      (click)="onDeleteTable()"
+      [disabled]="!selectedTable()"
+      title="Eliminar tabla"
+    >
+      <img
+        src="statics/remove_table.svg"
+        alt="Eliminar tabla"
+        class="toolbar-icon"
+      />
+    </button>
+
+    <!-- Botón: Insertar imagen -->
+    <button
+      type="button"
+      #insertImageButton
+      class="btn btn-light btn-sm me-2"
+      (click)="onInsertImage()"
+      [disabled]="!isEditorFocused()"
+      title="Insertar imagen"
+    >
+      <img
+        src="statics/add_image.svg"
+        alt="Insertar imagen"
+        class="toolbar-icon"
+      />
+    </button>
+
+        <!-- Botón: Eliminar imagen -->
+        <button
+        type="button"
+        #deleteImageButton
+        class="btn btn-light btn-sm me-2"
+        title="Eliminar imagen"
+        (click)="onDeleteImage()"
+        [disabled]="!selectedImage()"
+      >
+        <img
+          src="statics/remove_image.svg"
+          alt="Eliminar imagen"
+          class="toolbar-icon"
+        />
+      </button>
+
+      
+      <!-- Botón: Cambiar texto a negritas -->
+      <button
+      type="button"
+      #alternateBoldButton
+      class="btn btn-light btn-sm"
+      [disabled]="!isTextSelected()"
+      (click)="onBold()"
+      title="Cambiar texto a negrita"
+      >
+      <img
+      src="statics/bold.svg"
+      alt="Cambiar texto a negrita"
+      class="toolbar-icon"
+      />
+    </button>
+    
+    <!-- Botón: Cambiar texto a itálica -->
+    <button
+    type="button"
+    #alternateItalicButton
+    class="btn btn-light btn-sm"
+    [disabled]="!isTextSelected()"
+    (click)="onItalic()"
+    title="Cambiar texto a itálica"
+    >
+    <img
+    src="statics/italic.svg"
+    #piña
+    alt="Cambiar texto a itálica"
+    class="toolbar-icon"
+    />
+  </button>
+  
+  <!-- Botón: Guardar -->
+  <button
+    type="button"
+    class="btn btn-light btn-sm"
+    (click)="onSave()"
+    title="Guardar"
+    
+  >
+    <img src="statics/save.svg" alt="Guardar" class="toolbar-icon" />
+  </button>
+
+    <!-- Input oculto para elegir fichero -->
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      style="display: none"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+  <div #editor class="editor" contenteditable="true" dir="ltr"></div>
+</div>

@@ -1,0 +1,99 @@
+# =====================================================================
+#  Pipeline de Integración Continua (CI) — EasierNotes
+#
+#  Ejecuta automáticamente, en cada push y cada pull request, la
+#  compilación y las 97 pruebas (unitarias + integración) de la solución.
+#  Servicio: GitHub Actions (gratuito). No requiere instalar nada localmente.
+#
+#  Nota de alcance: este pipeline cubre la INTEGRACIÓN CONTINUA (build + test).
+#  No incluye despliegue continuo (CD) porque el proyecto es académico y no
+#  tiene un entorno de producción donde publicar la aplicación.
+# =====================================================================
+
+name: CI - Build y Pruebas
+
+# ---------------------------------------------------------------------
+#  Disparadores: cuándo se ejecuta el pipeline.
+# ---------------------------------------------------------------------
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:   # permite lanzarlo manualmente desde la pestaña Actions
+
+# ---------------------------------------------------------------------
+#  Trabajos (jobs) que componen el pipeline.
+# ---------------------------------------------------------------------
+jobs:
+  build-and-test:
+    name: Compilar y probar (.NET 8)
+    runs-on: ubuntu-latest    # servidor Linux gratuito provisto por GitHub
+
+    # Permisos necesarios para que el paso de reporte pueda publicar el resumen.
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
+    steps:
+      # 1) Descarga el código del repositorio al servidor.
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      # 2) Instala el SDK de .NET 8 en el servidor.
+      - name: Instalar .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 3) Restaura los paquetes NuGet de toda la solución.
+      - name: Restaurar dependencias
+        run: dotnet restore EasierNotes.sln
+
+      # 4) Compila la solución en configuración Release, sin volver a restaurar.
+      - name: Compilar (Release)
+        run: dotnet build EasierNotes.sln --configuration Release --no-restore
+
+      # 5) Ejecuta TODAS las pruebas (unitarias + integración) con cobertura.
+      #    --logger trx  -> genera un archivo de resultados legible por herramientas.
+      #    --results-directory -> centraliza los resultados para publicarlos después.
+      - name: Ejecutar pruebas con cobertura
+        run: >
+          dotnet test EasierNotes.sln
+          --configuration Release
+          --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+
+      # 6) Publica los resultados de pruebas como artefacto descargable,
+      #    incluso si alguna prueba falla (if: always()).
+      - name: Publicar resultados de pruebas
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultados-pruebas
+          path: ./TestResults
+          retention-days: 30
+
+      # 7) Muestra un resumen legible de las pruebas en la pestaña Actions.
+      #    continue-on-error: si el reporter de terceros fallara por permisos,
+      #    NO tumba el pipeline (las pruebas ya se ejecutaron en el paso 5).
+      - name: Resumen de pruebas (reporte visual)
+        uses: dorny/test-reporter@v1
+        if: always()
+        continue-on-error: true
+        with:
+          name: Reporte de pruebas
+          path: ./TestResults/**/*.trx
+          reporter: dotnet-trx
+
+      # 8) Resumen nativo garantizado: escribe el conteo en el resumen del job,
+      #    sin depender de acciones externas.
+      - name: Resumen en el panel del job
+        if: always()
+        run: |
+          echo "### Resultado de las pruebas" >> $GITHUB_STEP_SUMMARY
+          echo "Se ejecutaron las pruebas unitarias y de integración de EasierNotes." >> $GITHUB_STEP_SUMMARY
+          echo "Los archivos .trx detallados están disponibles como artefacto 'resultados-pruebas'." >> $GITHUB_STEP_SUMMARY

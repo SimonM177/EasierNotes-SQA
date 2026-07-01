@@ -1,0 +1,23 @@
+<section class="container-fluid my-4 mx-5">
+  <div class="d-flex justify-content-start flex-column">
+    <app-note-name
+      [currentName]="note.name"
+      [viewMode]="'Detail'"
+      (newName)="changeNoteName($event)"
+    >
+    </app-note-name>
+    <div class="d-flex justify-content-start align-items-center gap-2 mt-3">
+      <i class="bi bi-journals me-2 fs-3"></i>
+      <select class="form-select w-25 " [(ngModel)]="note.categoryId"
+      (change)="changeCategory($event.target)">
+        @for(category of categories(); track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <app-note-editor
+    [contentInput]="note.html"
+    (save)="onSaveHtml($event)"
+  ></app-note-editor>
+</section>

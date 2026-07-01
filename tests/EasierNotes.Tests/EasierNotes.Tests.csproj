@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>EasierNotes.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <!--
+    Paquetes del stack de pruebas elegido: xUnit + FluentAssertions + Moq.
+    Las versiones son estables y compatibles con .NET 8. Pueden actualizarse
+    desde el Administrador de paquetes NuGet de Visual Studio si se desea la última.
+
+    NOTA SOBRE MOQ: se fija 4.20.72, posterior a la retirada del componente
+    SponsorLink que generó controversia en las versiones 4.20.0–4.20.69.
+    Alternativa recomendable si se prefiere evitar Moq: NSubstitute.
+  -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.12.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Referencia al proyecto de dominio (el código bajo prueba). -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\EasierNotes.Domain\EasierNotes.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+input[type='text'],
+select {
+  width: 80%;
+  padding-left: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+}
+
+input[type='text']:focus,
+select:focus {
+  outline: none;
+}

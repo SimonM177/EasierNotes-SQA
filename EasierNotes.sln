@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.0.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasierNotes.Domain", "src\EasierNotes.Domain\EasierNotes.Domain.csproj", "{AE252EE5-03B4-440B-BDD8-6CBD4F607A48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasierNotes.Api", "src\EasierNotes.Api\EasierNotes.Api.csproj", "{FA4C3733-EC20-4DBA-9578-7B2B4BAA6552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasierNotes.Tests", "tests\EasierNotes.Tests\EasierNotes.Tests.csproj", "{994F7F8E-13CC-4A4C-A18B-08107575F159}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasierNotes.IntegrationTests", "tests\EasierNotes.IntegrationTests\EasierNotes.IntegrationTests.csproj", "{41157CD2-ECD9-4180-A809-12C40EE88B80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE252EE5-03B4-440B-BDD8-6CBD4F607A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE252EE5-03B4-440B-BDD8-6CBD4F607A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE252EE5-03B4-440B-BDD8-6CBD4F607A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE252EE5-03B4-440B-BDD8-6CBD4F607A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4C3733-EC20-4DBA-9578-7B2B4BAA6552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4C3733-EC20-4DBA-9578-7B2B4BAA6552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4C3733-EC20-4DBA-9578-7B2B4BAA6552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4C3733-EC20-4DBA-9578-7B2B4BAA6552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994F7F8E-13CC-4A4C-A18B-08107575F159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994F7F8E-13CC-4A4C-A18B-08107575F159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994F7F8E-13CC-4A4C-A18B-08107575F159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994F7F8E-13CC-4A4C-A18B-08107575F159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41157CD2-ECD9-4180-A809-12C40EE88B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41157CD2-ECD9-4180-A809-12C40EE88B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41157CD2-ECD9-4180-A809-12C40EE88B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41157CD2-ECD9-4180-A809-12C40EE88B80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

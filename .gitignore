@@ -1,0 +1,20 @@
+# Compilados de .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Resultados de pruebas y cobertura
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+coverage.cobertura.xml
+coverage.opencover.xml
+
+# Visual Studio
+.vs/
+*.vsidx
+
+# Rider / VS Code
+.idea/
+.vscode/

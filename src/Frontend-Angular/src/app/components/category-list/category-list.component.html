@@ -1,0 +1,161 @@
+<header
+  class="container-fluid
+         d-flex justify-content-between
+          bg-light px-5 py-4 mb-5
+          position-sticky top-0
+          border-bottom border-secondary-subtle shadow-sm z-3"
+>
+  <div class="d-flex align-center">
+    <i class="bi bi-search text-primary fw-bold fs-3 me-2"></i>
+    <input
+      #searchInput
+      class="form-control me-2 py-2 header-text"
+      placeholder="Buscar Categoria"
+      aria-label="Search"
+      (keyup)="updateSearchTerm(searchInput.value)"
+    />
+  </div>
+
+  <div class="d-flex">
+    <button
+      (click)="openCreateModal()"
+      class="btn btn-primary py-2 px-3 me-3 header-text"
+    >
+      <i class="bi bi-plus me-2"></i>
+      <span>Agregar Categoria</span>
+    </button>
+    <button
+      class="btn btn-secondary py-2 px-3 header-text"
+      (click)="openDeleteModal()"
+      [disabled]="!selectedCategory()"
+    >
+      <i class="bi bi-trash me-2"></i>
+      <span>Eliminar Categoria</span>
+    </button>
+  </div>
+</header>
+
+<section class="container m-5 px-3 d-flex flex-row flex-wrap gap-3">
+  @for (category of categories(); track category.id) {
+  <div class="card card-category d-flex "
+   (click)="selectCategory(category)"
+   (dblclick)="openCategory(category)"
+   [class.category-selected]="selectedCategory()?.id === category.id"
+  >
+    <div class="card-header d-flex justify-content-between align-items-center px-3 py-1">
+      <h4 class="card-title main-font m-0">{{ category.name }}</h4>
+      @if(category.name === 'Otras'){
+        <i class="bi bi-filter-left fs-3"></i>     
+     }@else{
+        <i class="bi bi-folder2-open fs-3"></i>
+      }
+    </div>
+    <div class="card-body notes-container d-flex flex-column gap-3 h-100">
+      @if(category.notes.length === 0){
+        <div class="d-flex flex-column align-items-center justify-content-center h-100">
+          <img src="statics/no_data.png" alt="Sin notas" class="img-fluid" style="width:50%; height:auto">
+          <p class="text-muted">Sin notas por el momento</p>
+        </div>
+      }@else{
+      @for (note of category.notes; track note.id) {
+        <div class="card card-note">
+          <h6 class="card-title main-font m-0 p-2">{{ note.name }}</h6>
+            <p class="card-text px-2 text-muted">{{ displayContentOverview(note.html, 20) }}</p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+  }
+</section>
+
+<!-- Modal Para Agregar Categoria-->
+<div class="modal fade" id="CreateCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CreateCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CreateCategoryModalLabel">Agregar Categoria</h5>
+        <button type="button" class="btn-close" (click)="closeCreateModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input
+          id="categoryNameInput"
+          type="text"
+          class="form-control"
+          placeholder="Nombre de la categoria"
+          (input)="updateCategoryName($event)"
+        />
+        @if(!uniqueCategoryName()){
+          <p class="text-danger small">El nombre de la categoria ya existe</p>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeCreateModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="!categoryNameValid() || !uniqueCategoryName()"
+          (click)="createCategory()"
+        >
+          <i class="bi bi-check-lg me-2" aria-hidden="true"></i>
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<!-- Modal Para Eliminar Categoria-->
+<div
+  class="modal fade"
+  id="DeleteCategoryModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="DeleteCategoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white py-1">
+        <h4 class="modal-title" id="DeleteCategoryModalLabel">
+          <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
+          Confirmación de eliminación
+        </h4>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+
+      <div class="modal-body py-5">
+        ¿Estás seguro de que deseas eliminar la categoria
+        <strong>{{ selectedCategory()?.name }}</strong
+        >?
+        <p class="text-muted mt-3">Tambien se eliminarán las notas asociadas a esta categoria</p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary w-25"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger w-25"
+          (click)="deleteCategory()"
+          data-bs-dismiss="modal"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

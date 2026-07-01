@@ -1,0 +1,67 @@
+.note-editor {
+  width: 100%;
+  max-width: 800px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+}
+
+.note-editor .toolbar {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.note-editor .toolbar button {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.note-editor .toolbar button:hover {
+  background: rgba(8, 126, 139, 0.1);
+  border-radius: 4px;
+}
+
+.note-editor .toolbar-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.note-editor .editor {
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+  padding: 1rem;
+  min-height: 300px;
+  line-height: 1.6;
+  font-size: 1rem;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+.note-editor .editor p {
+  margin-bottom: 1rem;
+}
+
+.note-editor .editor img {
+  max-width: 100%;
+  display: block;
+  margin: 1rem auto;
+  padding-left: 0;
+}
+
+.toolbar button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+
+
+
+
+
+
