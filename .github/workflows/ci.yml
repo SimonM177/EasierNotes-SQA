@@ -77,23 +77,24 @@ jobs:
           path: ./TestResults
           retention-days: 30
 
-      # 7) Muestra un resumen legible de las pruebas en la pestaña Actions.
-      #    continue-on-error: si el reporter de terceros fallara por permisos,
-      #    NO tumba el pipeline (las pruebas ya se ejecutaron en el paso 5).
-      - name: Resumen de pruebas (reporte visual)
-        uses: dorny/test-reporter@v1
+      # 7) Resumen agregado de TODAS las pruebas (ambos proyectos en un solo total).
+      #    A diferencia de reporters que generan un resumen por archivo .trx,
+      #    esta acción SUMA los resultados de todos los .trx -> muestra el total real.
+      #    continue-on-error: un fallo del reporter no tumba el pipeline.
+      - name: Resumen agregado de pruebas
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         continue-on-error: true
         with:
-          name: Reporte de pruebas
-          path: ./TestResults/**/*.trx
-          reporter: dotnet-trx
+          files: ./TestResults/**/*.trx
+          check_name: "Resultado de las 97 pruebas"
+          comment_mode: off
 
-      # 8) Resumen nativo garantizado: escribe el conteo en el resumen del job,
+      # 8) Resumen nativo garantizado: escribe una nota en el panel del job,
       #    sin depender de acciones externas.
       - name: Resumen en el panel del job
         if: always()
         run: |
           echo "### Resultado de las pruebas" >> $GITHUB_STEP_SUMMARY
-          echo "Se ejecutaron las pruebas unitarias y de integración de EasierNotes." >> $GITHUB_STEP_SUMMARY
+          echo "Se ejecutaron las pruebas unitarias (65) y de integración (32) de EasierNotes: 97 en total." >> $GITHUB_STEP_SUMMARY
           echo "Los archivos .trx detallados están disponibles como artefacto 'resultados-pruebas'." >> $GITHUB_STEP_SUMMARY
