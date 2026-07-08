@@ -290,12 +290,12 @@ var assemblies = [
   {
     "name": "EasierNotes.Domain",
     "classes": [
-      { "name": "EasierNotes.Domain.Media.Base64PayloadCalculator", "rp": "EasierNotes.Domain_Base64PayloadCalculator.html", "cl": 22, "ucl": 0, "cal": 22, "tl": 81, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "EasierNotes.Domain.Media.Base64PayloadCalculator", "rp": "EasierNotes.Domain_Base64PayloadCalculator.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 82, "cb": 7, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EasierNotes.Domain.Notes.DefaultNoteFactory", "rp": "EasierNotes.Domain_DefaultNoteFactory.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 54, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EasierNotes.Domain.Notes.LegacyNoteNameGenerator", "rp": "EasierNotes.Domain_LegacyNoteNameGenerator.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 35, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EasierNotes.Domain.Notes.Note", "rp": "EasierNotes.Domain_Note.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EasierNotes.Domain.Notes.NoteNameGenerator", "rp": "EasierNotes.Domain_NoteNameGenerator.html", "cl": 20, "ucl": 0, "cal": 20, "tl": 62, "cb": 14, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EasierNotes.Domain.Validation.ImageValidationResult", "rp": "EasierNotes.Domain_ImageValidationResult.html", "cl": 9, "ucl": 1, "cal": 10, "tl": 31, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "EasierNotes.Domain.Validation.ImageValidationResult", "rp": "EasierNotes.Domain_ImageValidationResult.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 31, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EasierNotes.Domain.Validation.ImageValidator", "rp": "EasierNotes.Domain_ImageValidator.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 57, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];

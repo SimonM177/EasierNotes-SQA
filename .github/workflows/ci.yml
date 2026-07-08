@@ -56,8 +56,9 @@ jobs:
         run: dotnet build EasierNotes.sln --configuration Release --no-restore
 
       # 5) Ejecuta TODAS las pruebas (unitarias + integración) con cobertura.
-      #    --logger trx  -> genera un archivo de resultados legible por herramientas.
-      #    --results-directory -> centraliza los resultados para publicarlos después.
+      #    IMPORTANTE: NO se fija LogFileName, para que cada proyecto de test genere
+      #    su PROPIO archivo .trx con nombre único. Si se fijara el mismo nombre, el
+      #    segundo proyecto sobrescribiría al primero y se perderían resultados.
       - name: Ejecutar pruebas con cobertura
         run: >
           dotnet test EasierNotes.sln

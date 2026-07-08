@@ -1,0 +1,295 @@
+{
+  "info": {
+    "name": "EasierNotes — Pruebas de Aceptación (criterios del cliente)",
+    "description": "Ciclo de pruebas de ACEPTACIÓN sobre el sistema EasierNotes, ejecutado por el tester en su rol de cliente. Cada carpeta corresponde a una Historia de Usuario y cada prueba valida un criterio de aceptación oficial de la ERS, con foco en Eficiencia de Desempeño. Trazable a los escenarios Gherkin de criterios_aceptacion.feature. Requiere el sistema corriendo en {{baseUrl}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "HU Crear nota (Javier Díaz) — Eficiencia de Desempeño",
+      "item": [
+        {
+          "name": "Crear nota lista en < 0,5 s",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "create"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Criterio de aceptación ERS: la nota se crea en menos de 0,5 s.",
+                  "pm.test('CA: la nota queda lista en menos de 0,5 segundos', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "pm.test('CA: la nota queda registrada en el sistema', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const n = pm.response.json();",
+                  "    pm.expect(n).to.have.property('id');",
+                  "    pm.collectionVariables.set('noteId', n.id);",
+                  "    pm.environment.set('noteId', n.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verificar que la nota quedó registrada",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CA: la nota existe en el sistema tras crearla', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HU Buscar nota (Samuel Parra) — Eficiencia de Desempeño",
+      "item": [
+        {
+          "name": "Obtener notas para búsqueda en < 1 s",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CA: la búsqueda dispone de datos en menos de 1 segundo', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "pm.test('CA: el sistema devuelve la lista de notas', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HU Escribir texto en nota (Germán Parra)",
+      "item": [
+        {
+          "name": "Guardar contenido editado",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "update"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{noteId}}\",\n  \"name\": \"Apuntes de la reunión\",\n  \"html\": \"<p>Contenido importante guardado por el usuario.</p>\",\n  \"categoryId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let b = JSON.parse(pm.request.body.raw);",
+                  "b.id = Number(pm.collectionVariables.get('noteId'));",
+                  "pm.request.body.raw = JSON.stringify(b);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CA: el guardado responde con rapidez', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "pm.test('CA: el guardado se completa correctamente', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verificar que el contenido se conservó",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CA: al reabrir la nota el contenido se conserva íntegro', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const n = pm.response.json();",
+                  "    pm.expect(n.html).to.include('Contenido importante');",
+                  "    pm.expect(n.name).to.eql('Apuntes de la reunión');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Limpieza del escenario",
+      "item": [
+        {
+          "name": "Eliminar la nota de prueba",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/delete/{{noteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "delete",
+                "{{noteId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('El escenario deja el sistema limpio', function () {",
+                  "    pm.expect([204, 404]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5219",
+      "type": "string"
+    },
+    {
+      "key": "noteId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
