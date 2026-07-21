@@ -53,6 +53,10 @@ jobs:
           python-version: '3.11'
       - name: Instalar dependencias del pipeline
         run: pip install pandas openpyxl
+        
+      # NUEVO: crea la carpeta de salida
+      - name: Crear carpeta de salida
+        run: mkdir -p salida
 
       # 7) Ejecuta el pipeline: genera Excel de auditoría + datos.json
       #    (las métricas de desempeño quedan como 'pendiente' porque
