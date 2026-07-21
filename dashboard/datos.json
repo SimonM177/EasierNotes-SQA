@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "proyecto": "Easier-Notes",
+    "caracteristica": "Eficiencia de Desempeño",
+    "subcaracteristicas": [
+      "Comportamiento Temporal",
+      "Utilización de Recursos",
+      "Capacidad"
+    ],
+    "norma": "ISO/IEC/IEEE 29119 · ISO/IEC 25010 · IEEE 1061",
+    "actualizado": "2026-07-13 23:43",
+    "version": "1.0"
+  },
+  "kpis": {
+    "totalPruebas": 97,
+    "pruebasVerdes": 97,
+    "coberturaLinea": 100.0,
+    "coberturaRama": 100.0,
+    "asercionesApi": 44,
+    "hallazgos": 4,
+    "p95": 13,
+    "umbralP95": 500,
+    "throughput": 95.88,
+    "errorPct": 0.0
+  },
+  "niveles": [
+    {
+      "nombre": "Unitarias",
+      "cantidad": 65,
+      "tipo": "Caja blanca",
+      "estado": "verde",
+      "enfoque": "Caja blanca"
+    },
+    {
+      "nombre": "Integración",
+      "cantidad": 32,
+      "tipo": "Caja gris",
+      "estado": "verde",
+      "enfoque": "Caja gris"
+    },
+    {
+      "nombre": "Caja negra",
+      "cantidad": 18,
+      "tipo": "Caja negra",
+      "estado": "verde",
+      "enfoque": "Caja negra"
+    },
+    {
+      "nombre": "Sistema",
+      "cantidad": 17,
+      "tipo": "Caja negra",
+      "estado": "verde",
+      "enfoque": "Caja negra"
+    },
+    {
+      "nombre": "Aceptación",
+      "cantidad": 9,
+      "tipo": "Caja negra",
+      "estado": "parcial",
+      "enfoque": "Caja negra"
+    }
+  ],
+  "cobertura": {
+    "linea": 100.0,
+    "rama": 100.0,
+    "umbral": 80
+  },
+  "desempeno": {
+    "jm01": {
+      "nombre": "JM-01 · Comportamiento Temporal",
+      "muestras": 200,
+      "p95": 13,
+      "promedio": 10,
+      "mediana": 10,
+      "max": 43,
+      "min": 8,
+      "throughput": 95.88,
+      "errorPct": 0.0
+    },
+    "jm02": {
+      "nombre": "JM-02 · Capacidad",
+      "muestras": 1000,
+      "p95": 54,
+      "promedio": 38,
+      "mediana": 36,
+      "max": 129,
+      "min": 29,
+      "throughput": 25.75,
+      "errorPct": 0.0
+    },
+    "jm03": {
+      "nombre": "JM-03 · Utilización de Recursos",
+      "muestras": 1800,
+      "p95": 184,
+      "promedio": 66,
+      "mediana": 45,
+      "max": 377,
+      "min": 10,
+      "throughput": 14.96,
+      "errorPct": 0.0
+    }
+  },
+  "proceso_tabla": [
+    {
+      "Métrica": "Total de pruebas de código",
+      "Valor": 97.0,
+      "Unidad": "pruebas",
+      "Umbral": "-",
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Pruebas superadas",
+      "Valor": 97.0,
+      "Unidad": "pruebas",
+      "Umbral": 97,
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Tasa de éxito",
+      "Valor": 100.0,
+      "Unidad": "%",
+      "Umbral": 100,
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Cobertura de línea",
+      "Valor": 100.0,
+      "Unidad": "%",
+      "Umbral": 80,
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Cobertura de rama",
+      "Valor": 100.0,
+      "Unidad": "%",
+      "Umbral": 80,
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Aserciones de API",
+      "Valor": 44.0,
+      "Unidad": "aserciones",
+      "Umbral": "-",
+      "Estado": "OK"
+    }
+  ],
+  "producto_tabla": [
+    {
+      "Métrica": "Latencia p95 (creación)",
+      "Valor": 13.0,
+      "Unidad": "ms",
+      "Umbral": 500,
+      "Estado": "OK"
+    },
+    {
+      "Métrica": "Latencia promedio",
+      "Valor": 10.0,
+      "Unidad": "ms",
+      "Umbral": "-",
+      "Estado": "info"
+    },
+    {
+      "Métrica": "Latencia mediana",
+      "Valor": 10.0,
+      "Unidad": "ms",
+      "Umbral": "-",
+      "Estado": "info"
+    },
+    {
+      "Métrica": "Latencia máxima",
+      "Valor": 43.0,
+      "Unidad": "ms",
+      "Umbral": "-",
+      "Estado": "frío"
+    },
+    {
+      "Métrica": "Throughput",
+      "Valor": 95.88,
+      "Unidad": "req/s",
+      "Umbral": "-",
+      "Estado": "info"
+    },
+    {
+      "Métrica": "Porcentaje de error",
+      "Valor": 0.0,
+      "Unidad": "%",
+      "Umbral": 0,
+      "Estado": "OK"
+    }
+  ],
+  "desempeno_tabla": [
+    {
+      "Plan": "JM-01",
+      "Subcaracterística": "Comportamiento Temporal",
+      "Muestras": 200,
+      "p95 (ms)": 13,
+      "Promedio (ms)": 10,
+      "Máx (ms)": 43,
+      "Throughput (req/s)": 95.88,
+      "Error (%)": 0.0,
+      "Estado": "OK"
+    },
+    {
+      "Plan": "JM-02",
+      "Subcaracterística": "Capacidad",
+      "Muestras": 1000,
+      "p95 (ms)": 54,
+      "Promedio (ms)": 38,
+      "Máx (ms)": 129,
+      "Throughput (req/s)": 25.75,
+      "Error (%)": 0.0,
+      "Estado": "medido"
+    },
+    {
+      "Plan": "JM-03",
+      "Subcaracterística": "Utilización de Recursos",
+      "Muestras": 1800,
+      "p95 (ms)": 184,
+      "Promedio (ms)": 66,
+      "Máx (ms)": 377,
+      "Throughput (req/s)": 14.96,
+      "Error (%)": 0.0,
+      "Estado": "medido"
+    }
+  ]
+}

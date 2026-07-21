@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard SQA · Easier-Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="apexcharts.min.js"></script>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">EN</div>
+      <div class="brand-text">
+        <div class="brand-title">Easier-Notes</div>
+        <div class="brand-sub">SQA Dashboard</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-page="resumen"><span class="nav-ico">◉</span> Resumen</button>
+      <button class="nav-item" data-page="niveles"><span class="nav-ico">▤</span> Niveles de prueba</button>
+      <button class="nav-item" data-page="desempeno"><span class="nav-ico">⚡</span> Desempeño</button>
+      <button class="nav-item" data-page="resultados"><span class="nav-ico">◈</span> Resultados</button>
+      <button class="nav-item" data-page="ecosistema"><span class="nav-ico">⬡</span> Ecosistema</button>
+      <button class="nav-item" data-page="hallazgos"><span class="nav-ico">⚑</span> Hallazgos</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="live-dot"></div>
+      <span id="lastUpdate">En vivo</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="topbar-title">
+        <h1 id="pageTitle">Resumen ejecutivo</h1>
+        <p id="pageSub">Panorámica del aseguramiento de la Eficiencia de Desempeño</p>
+      </div>
+      <div class="topbar-actions">
+        <label class="btn btn-ghost" for="fileInput">↻ Cargar datos</label>
+        <input type="file" id="fileInput" accept=".json" hidden>
+        <button class="btn btn-primary" id="refreshBtn">Actualizar</button>
+      </div>
+    </header>
+
+    <div class="content" id="content"><!-- páginas se inyectan aquí --></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

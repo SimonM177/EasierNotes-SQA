@@ -1,101 +1,73 @@
-# =====================================================================
-#  Pipeline de Integración Continua (CI) — EasierNotes
-#
-#  Ejecuta automáticamente, en cada push y cada pull request, la
-#  compilación y las 97 pruebas (unitarias + integración) de la solución.
-#  Servicio: GitHub Actions (gratuito). No requiere instalar nada localmente.
-#
-#  Nota de alcance: este pipeline cubre la INTEGRACIÓN CONTINUA (build + test).
-#  No incluye despliegue continuo (CD) porque el proyecto es académico y no
-#  tiene un entorno de producción donde publicar la aplicación.
-# =====================================================================
+name: CI - Pruebas y Métricas
 
-name: CI - Build y Pruebas
-
-# ---------------------------------------------------------------------
-#  Disparadores: cuándo se ejecuta el pipeline.
-# ---------------------------------------------------------------------
+# Se dispara en cada push y en cada pull request
 on:
   push:
-    branches: [ main, master, develop ]
   pull_request:
-    branches: [ main, master, develop ]
-  workflow_dispatch:   # permite lanzarlo manualmente desde la pestaña Actions
+  workflow_dispatch:   # permite ejecutarlo manualmente desde la pestaña Actions
 
-# ---------------------------------------------------------------------
-#  Trabajos (jobs) que componen el pipeline.
-# ---------------------------------------------------------------------
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
-  build-and-test:
-    name: Compilar y probar (.NET 8)
-    runs-on: ubuntu-latest    # servidor Linux gratuito provisto por GitHub
-
-    # Permisos necesarios para que el paso de reporte pueda publicar el resumen.
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-
+  build-test-metricas:
+    runs-on: ubuntu-latest
     steps:
-      # 1) Descarga el código del repositorio al servidor.
-      - name: Descargar el código
+      # 1) Clona el repositorio en la máquina limpia
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      # 2) Instala el SDK de .NET 8 en el servidor.
-      - name: Instalar .NET 8 SDK
+      # 2) Instala .NET 8
+      - name: Configurar .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      # 3) Restaura los paquetes NuGet de toda la solución.
-      - name: Restaurar dependencias
+      # 3) Restaura dependencias y compila
+      - name: Restaurar
         run: dotnet restore EasierNotes.sln
-
-      # 4) Compila la solución en configuración Release, sin volver a restaurar.
-      - name: Compilar (Release)
+      - name: Compilar
         run: dotnet build EasierNotes.sln --configuration Release --no-restore
 
-      # 5) Ejecuta TODAS las pruebas (unitarias + integración) con cobertura.
-      #    IMPORTANTE: NO se fija LogFileName, para que cada proyecto de test genere
-      #    su PROPIO archivo .trx con nombre único. Si se fijara el mismo nombre, el
-      #    segundo proyecto sobrescribiría al primero y se perderían resultados.
+      # 4) Ejecuta las 97 pruebas y recolecta cobertura
       - name: Ejecutar pruebas con cobertura
         run: >
-          dotnet test EasierNotes.sln
-          --configuration Release
-          --no-build
+          dotnet test EasierNotes.sln --no-build --configuration Release
           --logger "trx"
           --collect:"XPlat Code Coverage"
-          --results-directory ./TestResults
+          --results-directory ./resultados
 
-      # 6) Publica los resultados de pruebas como artefacto descargable,
-      #    incluso si alguna prueba falla (if: always()).
+      # 5) Publica el resumen de pruebas (agrega los .trx -> total real)
       - name: Publicar resultados de pruebas
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          trx_files: "resultados/**/*.trx"
+
+      # 6) Instala Python + Pandas para el pipeline de métricas
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias del pipeline
+        run: pip install pandas openpyxl
+
+      # 7) Ejecuta el pipeline: genera Excel de auditoría + datos.json
+      #    (las métricas de desempeño quedan como 'pendiente' porque
+      #     JMeter no corre en CI; se integran con el script local)
+      - name: Generar métricas (proceso)
+        run: python pipeline_metricas.py --dir ./resultados --out ./salida
+
+      # 8) Sube todo como artefacto descargable
+      - name: Publicar artefacto de métricas
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: resultados-pruebas
-          path: ./TestResults
-          retention-days: 30
-
-      # 7) Resumen agregado de TODAS las pruebas (ambos proyectos en un solo total).
-      #    A diferencia de reporters que generan un resumen por archivo .trx,
-      #    esta acción SUMA los resultados de todos los .trx -> muestra el total real.
-      #    continue-on-error: un fallo del reporter no tumba el pipeline.
-      - name: Resumen agregado de pruebas
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        continue-on-error: true
-        with:
-          files: ./TestResults/**/*.trx
-          check_name: "Resultado de las 97 pruebas"
-          comment_mode: off
-
-      # 8) Resumen nativo garantizado: escribe una nota en el panel del job,
-      #    sin depender de acciones externas.
-      - name: Resumen en el panel del job
-        if: always()
-        run: |
-          echo "### Resultado de las pruebas" >> $GITHUB_STEP_SUMMARY
-          echo "Se ejecutaron las pruebas unitarias (65) y de integración (32) de EasierNotes: 97 en total." >> $GITHUB_STEP_SUMMARY
-          echo "Los archivos .trx detallados están disponibles como artefacto 'resultados-pruebas'." >> $GITHUB_STEP_SUMMARY
+          name: metricas-y-resultados
+          path: |
+            resultados/**/*.trx
+            resultados/**/coverage.cobertura.xml
+            salida/Auditoria_Metricas_EasierNotes.xlsx
+            salida/datos.json
