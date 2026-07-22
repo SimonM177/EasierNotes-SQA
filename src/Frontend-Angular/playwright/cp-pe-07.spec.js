@@ -13,7 +13,7 @@ const path = require('path');
 
 // ====== AJUSTA ESTO ======
 const APP_URL = 'http://localhost:4200';
-const NOTA_URL = APP_URL + '/note/1';   // entra DIRECTO a la nota 1
+const NOTA_URL = APP_URL + '/note/2';   // entra DIRECTO a la nota 1
 const SELECTOR_EDITOR = '.editor';
 const UMBRAL_TECLA_MS = 100;
 const UMBRAL_GUARDADO_MS = 1000;

@@ -8,14 +8,14 @@
       "Capacidad"
     ],
     "norma": "ISO/IEC/IEEE 29119 · ISO/IEC 25010 · IEEE 1061",
-    "actualizado": "2026-07-13 23:43",
+    "actualizado": "2026-07-21 20:24",
     "version": "1.0"
   },
   "kpis": {
     "totalPruebas": 97,
     "pruebasVerdes": 97,
-    "coberturaLinea": 100.0,
-    "coberturaRama": 100.0,
+    "coberturaLinea": 77.8,
+    "coberturaRama": 80.0,
     "asercionesApi": 44,
     "hallazgos": 4,
     "p95": 13,
@@ -61,8 +61,8 @@
     }
   ],
   "cobertura": {
-    "linea": 100.0,
-    "rama": 100.0,
+    "linea": 77.8,
+    "rama": 80.0,
     "umbral": 80
   },
   "desempeno": {
@@ -124,14 +124,14 @@
     },
     {
       "Métrica": "Cobertura de línea",
-      "Valor": 100.0,
+      "Valor": 77.8,
       "Unidad": "%",
       "Umbral": 80,
-      "Estado": "OK"
+      "Estado": "BAJO"
     },
     {
       "Métrica": "Cobertura de rama",
-      "Valor": 100.0,
+      "Valor": 80.0,
       "Unidad": "%",
       "Umbral": 80,
       "Estado": "OK"
